@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useCart } from "@/context/CartContext";
 
 const navLinks = [
   { href: "#home", label: "Home" },
@@ -13,6 +14,7 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { totalItems, setIsCartOpen } = useCart();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -57,12 +59,17 @@ export default function Navbar() {
                 {link.label}
               </a>
             ))}
-            <a
-              href="#order"
-              className="ml-3 px-5 py-2.5 rounded-full bg-primary text-white text-sm font-semibold transition-all duration-300 hover:bg-primary-dark hover:shadow-lg hover:shadow-primary/25 hover:-translate-y-0.5"
+            <button
+              onClick={() => setIsCartOpen(true)}
+              className="relative ml-3 px-5 py-2.5 rounded-full bg-primary text-white text-sm font-semibold transition-all duration-300 hover:bg-primary-dark hover:shadow-lg hover:shadow-primary/25 hover:-translate-y-0.5"
             >
               Order Now
-            </a>
+              {totalItems > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-accent text-brown text-xs font-bold flex items-center justify-center">
+                  {totalItems}
+                </span>
+              )}
+            </button>
           </div>
 
           {/* Mobile menu button */}
@@ -116,13 +123,15 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
-          <a
-            href="#order"
-            onClick={() => setMobileOpen(false)}
-            className="block mx-4 mt-3 px-5 py-3 rounded-full bg-primary text-white text-center font-semibold hover:bg-primary-dark transition-colors"
+          <button
+            onClick={() => {
+              setMobileOpen(false);
+              setIsCartOpen(true);
+            }}
+            className="block w-[calc(100%-2rem)] mx-4 mt-3 px-5 py-3 rounded-full bg-primary text-white text-center font-semibold hover:bg-primary-dark transition-colors"
           >
-            Order Now
-          </a>
+            Order Now {totalItems > 0 && `(${totalItems})`}
+          </button>
         </div>
       </div>
     </nav>

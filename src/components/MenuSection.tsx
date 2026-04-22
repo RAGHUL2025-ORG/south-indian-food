@@ -4,9 +4,13 @@ import { useState } from "react";
 import Image from "next/image";
 import { menuItems, categories, type MenuItem } from "@/data/menu";
 import { useScrollReveal } from "./useScrollReveal";
+import { useCart } from "@/context/CartContext";
+import { useToast } from "@/context/ToastContext";
 
 function MenuCard({ item, index }: { item: MenuItem; index: number }) {
   const [imageError, setImageError] = useState(false);
+  const { addItem } = useCart();
+  const { showToast } = useToast();
 
   return (
     <div
@@ -73,7 +77,13 @@ function MenuCard({ item, index }: { item: MenuItem; index: number }) {
         <p className="mt-2 text-sm text-brown-light/80 leading-relaxed line-clamp-2">
           {item.description}
         </p>
-        <button className="mt-4 w-full py-2.5 rounded-xl bg-cream-dark text-foreground text-sm font-semibold transition-all duration-300 hover:bg-primary hover:text-white hover:shadow-md hover:shadow-primary/20">
+        <button
+          onClick={() => {
+            addItem(item);
+            showToast(`${item.name} added to your order!`);
+          }}
+          className="mt-4 w-full py-2.5 rounded-xl bg-cream-dark text-foreground text-sm font-semibold transition-all duration-300 hover:bg-primary hover:text-white hover:shadow-md hover:shadow-primary/20"
+        >
           Add to Order
         </button>
       </div>

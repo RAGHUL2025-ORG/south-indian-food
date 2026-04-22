@@ -1,6 +1,10 @@
 "use client";
 
-export default function Hero() {
+interface HeroProps {
+  onBookTable: () => void;
+}
+
+export default function Hero({ onBookTable }: HeroProps) {
   return (
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
       {/* Background */}
@@ -67,12 +71,12 @@ export default function Hero() {
                 />
               </svg>
             </a>
-            <a
-              href="#order"
+            <button
+              onClick={onBookTable}
               className="inline-flex items-center justify-center px-8 py-4 rounded-full border-2 border-white/20 text-white font-semibold text-lg transition-all duration-300 hover:bg-white/10 hover:border-white/40 hover:-translate-y-1"
             >
               Book a Table
-            </a>
+            </button>
           </div>
 
           {/* Stats */}

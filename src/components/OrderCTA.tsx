@@ -1,9 +1,15 @@
 "use client";
 
 import { useScrollReveal } from "./useScrollReveal";
+import { useCart } from "@/context/CartContext";
 
-export default function OrderCTA() {
+interface OrderCTAProps {
+  onBookTable: () => void;
+}
+
+export default function OrderCTA({ onBookTable }: OrderCTAProps) {
   const { ref, isVisible } = useScrollReveal();
+  const { setIsCartOpen } = useCart();
 
   return (
     <section id="order" className="py-20 sm:py-28 relative overflow-hidden">
@@ -36,24 +42,24 @@ export default function OrderCTA() {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10 sm:mt-12">
-          <a
-            href="#menu"
+          <button
+            onClick={() => setIsCartOpen(true)}
             className="group inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-primary text-white font-semibold text-lg transition-all duration-300 hover:bg-primary-dark hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-1"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4m1.6 8l-1.68 8H19m-12 0a1 1 0 100 2 1 1 0 000-2zm10 0a1 1 0 100 2 1 1 0 000-2z" />
             </svg>
             Order Online
-          </a>
-          <a
-            href="#contact"
+          </button>
+          <button
+            onClick={onBookTable}
             className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border-2 border-white/20 text-white font-semibold text-lg transition-all duration-300 hover:bg-white/10 hover:border-white/40 hover:-translate-y-1"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
             Book a Table
-          </a>
+          </button>
         </div>
 
         {/* Trust indicators */}

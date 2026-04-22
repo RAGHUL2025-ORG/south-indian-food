@@ -4,12 +4,16 @@ import Image from "next/image";
 import { useState } from "react";
 import { menuItems } from "@/data/menu";
 import { useScrollReveal } from "./useScrollReveal";
+import { useCart } from "@/context/CartContext";
+import { useToast } from "@/context/ToastContext";
 
 const featuredItems = menuItems.filter((item) => item.featured);
 
 export default function Specials() {
   const { ref, isVisible } = useScrollReveal();
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
+  const { addItem } = useCart();
+  const { showToast } = useToast();
 
   const handleImageError = (id: string) => {
     setImageErrors((prev) => ({ ...prev, [id]: true }));
@@ -108,7 +112,13 @@ export default function Specials() {
                   <span className="text-3xl font-bold text-primary">
                     ₹{item.price}
                   </span>
-                  <button className="px-6 sm:px-8 py-3 rounded-full bg-primary text-white font-semibold transition-all duration-300 hover:bg-primary-dark hover:shadow-lg hover:shadow-primary/25 hover:-translate-y-0.5">
+                  <button
+                    onClick={() => {
+                      addItem(item);
+                      showToast(`${item.name} added to your order!`);
+                    }}
+                    className="px-6 sm:px-8 py-3 rounded-full bg-primary text-white font-semibold transition-all duration-300 hover:bg-primary-dark hover:shadow-lg hover:shadow-primary/25 hover:-translate-y-0.5"
+                  >
                     Order Now
                   </button>
                 </div>
