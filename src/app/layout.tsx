@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+import CartSidebar from "@/components/layout/CartSidebar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,16 +16,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Annaporana | Authentic South Indian Cuisine",
+  title: "Apple — Products, Design & Innovation",
   description:
-    "Experience the authentic flavors of South India. From crispy dosas to aromatic filter coffee — every dish tells a story of tradition, crafted with love.",
+    "Discover the innovative world of Apple. Shop iPhone, Mac, iPad, Apple Watch, AirPods, and accessories.",
   keywords: [
-    "South Indian food",
-    "dosa",
-    "idli",
-    "filter coffee",
-    "Chennai restaurant",
-    "authentic cuisine",
+    "Apple",
+    "iPhone",
+    "MacBook",
+    "iPad",
+    "Apple Watch",
+    "AirPods",
+    "Mac",
   ],
 };
 
@@ -36,7 +40,12 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
-      <body className="min-h-screen flex flex-col">{children}</body>
+      <body className="min-h-screen flex flex-col">
+        <Navbar />
+        <CartSidebar />
+        <main className="flex-1 pt-11">{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }

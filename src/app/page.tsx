@@ -1,23 +1,17 @@
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import MenuSection from "@/components/MenuSection";
-import Specials from "@/components/Specials";
-import About from "@/components/About";
-import OrderCTA from "@/components/OrderCTA";
-import Footer from "@/components/Footer";
+import HeroCarousel from "@/components/sections/HeroCarousel";
+import ProductShowcase from "@/components/sections/ProductShowcase";
+import LatestProducts from "@/components/sections/LatestProducts";
+import AppleExperience from "@/components/sections/AppleExperience";
+import CTABanner from "@/components/sections/CTABanner";
 
 export default function Home() {
   return (
     <>
-      <Navbar />
-      <main className="flex-1">
-        <Hero />
-        <MenuSection />
-        <Specials />
-        <About />
-        <OrderCTA />
-      </main>
-      <Footer />
+      <HeroCarousel />
+      <ProductShowcase />
+      <LatestProducts />
+      <AppleExperience />
+      <CTABanner />
     </>
   );
 }
